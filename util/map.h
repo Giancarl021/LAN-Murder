@@ -6,7 +6,7 @@ enum {
 };
 
 typedef struct {
-	unsigned int width;
-	unsigned int height;
+	int width;
+	int height;
 	int *rooms;
 } Map;

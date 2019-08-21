@@ -7,7 +7,7 @@
 #include "util/map.c"
 
 int main(int argc, char *argv[]) {
-	printf(read_file("map/3.map"));
-//	parse_map(read_file("map/1.map"));
+	printf(read_file("map/1.map"));
+	parse_map(read_file("map/1.map"));
 	return 0;
 }
