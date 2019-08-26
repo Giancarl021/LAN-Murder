@@ -37,22 +37,6 @@ char *map_to_string(Map map) {
 	r[0] = '\0';
 	
 	for(i = 0; i < size; i++) {
-//		switch(map.rooms[i]) {
-//			case BLOCK_ROOM:
-//				strcat(r, "[ ]");
-//				break;
-//			case VCORRIDOR_ROOM:
-//				strcat(r, "( )");
-//				break;
-//			case HCORRIDOR_ROOM:
-//				strcat(r, "{ }");
-//				break;
-//			case NULL_ROOM:
-//				strcat(r, "###");
-//				break;
-//			default:
-//				strcat(r, "!!!");
-//		}
 		int k = map.rooms[i];
 		switch(k) {
 			case NULL_ROOM:
@@ -78,32 +62,48 @@ void map_renderer(Map map, int position) {
 		
 	for(i = 0; i < l; i++) {
 		k = map.rooms[i];
+		if(position == i) textbackground(HIGHLIGHT_BG);
+		else textbackground(DEFAULT_BG);
 		switch(k) {
 			case BLOCK_ROOM:
 			case VCORRIDOR_ROOM:
 			case HCORRIDOR_ROOM:
-				printf("%c%c%c", rs[k].combination[0], i == position ? '0' : rs[k].combination[1], rs[k].combination[2]);
+				textcolor(rs[k].color);
+				printf("%s", rs[k].combination);
 				break;
 			case NULL_ROOM:
-				if(i == position) printf(" 0 ");
-				else printf("   ");
+				printf("   ");
 				break;
 			default:
+				textcolor(DARKGRAY);
 				printf("ERR");
 		}
 		
 		if(!((i + 1) % map.width)) {
 			printf("\n");
 		}
+		textcolor(DEFAULT_COLOR);
+	}
+};
+
+int map_move(Map map, int position, int direction) {
+	int destination;
+	if(direction == MV_UP) {
+		destination = position - map.width;
+	} else if (direction == MV_DOWN) {
+		destination = position + map.width;
+	} else if (direction == MV_LEFT) {
+		destination = position - 1;
+	} else if (direction == MV_RIGHT) {
+		destination = position + 1 ;
+	} else {
+		return position;
 	}
 	
-	// TODO
-	/*
-		Render all white spaces in map before visible cells (out of bounds in map.rooms)
-		Render visible map
-		Render all white spaces in map after visible cells (out of bound in map.rooms)
-	*/
-};
+	if(_is_accessible_room(map, position, destination)) {
+		return destination;
+	}
+}
 
 int _get_room_type(char a, char b, char c) {
 	int i;
@@ -114,4 +114,10 @@ int _get_room_type(char a, char b, char c) {
 		}
 	}
 	return -1;
+}
+
+bool _is_accessible_room(Map map, int origin, int destination) {
+	if(destination < 0 || destination > (map.width * map.height)) return false;
+	
+	if(map.rooms[destination] == NULL_ROOM) return false;
 }
