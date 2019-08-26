@@ -16,7 +16,7 @@ char *read_file(const char *path) {
 			str[index++] = ch;
 		}
 	}
-	str[index] = NULL;
+	str[index] = '\0';
 	fclose(f);
 	return str;
 }

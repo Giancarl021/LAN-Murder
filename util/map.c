@@ -1,5 +1,10 @@
 Map *parse_map(const char* string) {
-	int i, w = -1, h = 0, l = strlen(string), size;
+	int i, size,
+		w = -1,
+		h = 0,
+		l = strlen(string),
+		index = 0;
+	
 	for(i = 0; i < l; i++) {
 		if(string[i] == '\n') {
 			if(w == -1) w = i;
@@ -13,9 +18,62 @@ Map *parse_map(const char* string) {
 	size = (w / 3) * h;
 	
 	x->rooms = malloc(sizeof(int) * size);
-	printf("w:%d h:%d", w / 3, h);
 	for(i = 0; i < size; i++) {
-		// define rooms by string
+		x->rooms[i] = _get_room_type(string[index], string[index + 1], string[index + 2]);
+		if(string[index + 3] == '\n') index += 4;
+		else index += 3;
 	}
 	return x;
+}
+
+char *map_to_string(Map map) {
+	int i, j, 
+		h = map.height,
+		w = map.width,
+		size = w * h;
+	
+	char *r = malloc((sizeof(char) * size * 3) + (sizeof(char) * h));
+	
+	r[0] = '\0';
+	
+	for(i = 0; i < size; i++) {
+		switch(map.rooms[i]) {
+			case BLOCK_ROOM:
+				strcat(r, "[ ]");
+				break;
+			case VCORRIDOR_ROOM:
+				strcat(r, "( )");
+				break;
+			case HCORRIDOR_ROOM:
+				strcat(r, "{ }");
+				break;
+			case NULL_ROOM:
+				strcat(r, "###");
+				break;
+			default:
+				strcat(r, "!!!");
+		}
+		
+		if(!((i + 1) % w)) {
+			strcat(r, "\n");
+		}
+	}
+	return r;
+}
+
+int _get_room_type(char a, char b, char c) {
+	int i;
+	struct _room_structure rs[4];
+	
+	rs[0] = (struct _room_structure){{'[',' ',']'}, BLOCK_ROOM};
+	rs[1] = (struct _room_structure){{'{',' ','}'}, HCORRIDOR_ROOM};
+	rs[2] = (struct _room_structure){{'(',' ',')'}, VCORRIDOR_ROOM};
+	rs[3] = (struct _room_structure){{'#','#','#'}, NULL_ROOM};
+	
+	for(i = 0; i < 4; i++) {
+		if(a == rs[i].combination[0] && b == rs[i].combination[1] && c == rs[i].combination[2]) {
+			return rs[i].result;
+		}
+	}
+	return -1;
 }
