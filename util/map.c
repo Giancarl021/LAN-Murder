@@ -61,6 +61,22 @@ char *map_to_string(Map map) {
 	return r;
 }
 
+void map_renderer(Map map, int size, int position) {
+	if(!(size % 2)) size++;
+	
+	int i,
+		l = map.height * map.width; // map.rooms size
+		g = (int)floor((double)(size/2)), // max deslocation of map.rooms
+		d = g * (size + 1); // center cell of map.rooms
+	
+	// TODO
+	/*
+		Render all white spaces in map before visible cells (out of bounds in map.rooms)
+		Render visible map
+		Render all white spaces in map after visible cells (out of bound in map.rooms)
+	*/
+};
+
 int _get_room_type(char a, char b, char c) {
 	int i;
 	struct _room_structure rs[4];
