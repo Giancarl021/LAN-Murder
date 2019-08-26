@@ -16,4 +16,15 @@ struct _room_structure {
 	int result;
 };
 
+struct _room_structure rs[4] = {
+	{{'#','#','#','\0'}, NULL_ROOM},
+	{{'[',' ',']','\0'}, BLOCK_ROOM},
+	{{'(',' ',')','\0'}, VCORRIDOR_ROOM},
+	{{'{',' ','}','\0'}, HCORRIDOR_ROOM}
+};
+
 int _get_room_type(char a, char b, char c);
+
+Map *parse_map(const char* string);
+
+char *map_to_string(Map map);

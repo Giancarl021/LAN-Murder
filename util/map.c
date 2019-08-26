@@ -37,18 +37,29 @@ char *map_to_string(Map map) {
 	r[0] = '\0';
 	
 	for(i = 0; i < size; i++) {
-		switch(map.rooms[i]) {
-			case BLOCK_ROOM:
-				strcat(r, "[ ]");
-				break;
-			case VCORRIDOR_ROOM:
-				strcat(r, "( )");
-				break;
-			case HCORRIDOR_ROOM:
-				strcat(r, "{ }");
-				break;
+//		switch(map.rooms[i]) {
+//			case BLOCK_ROOM:
+//				strcat(r, "[ ]");
+//				break;
+//			case VCORRIDOR_ROOM:
+//				strcat(r, "( )");
+//				break;
+//			case HCORRIDOR_ROOM:
+//				strcat(r, "{ }");
+//				break;
+//			case NULL_ROOM:
+//				strcat(r, "###");
+//				break;
+//			default:
+//				strcat(r, "!!!");
+//		}
+		int k = map.rooms[i];
+		switch(k) {
 			case NULL_ROOM:
-				strcat(r, "###");
+			case BLOCK_ROOM:
+			case VCORRIDOR_ROOM:
+			case HCORRIDOR_ROOM:
+				strcat(r, rs[k].combination);
 				break;
 			default:
 				strcat(r, "!!!");
@@ -61,13 +72,30 @@ char *map_to_string(Map map) {
 	return r;
 }
 
-void map_renderer(Map map, int size, int position) {
-	if(!(size % 2)) size++;
-	
-	int i,
-		l = map.height * map.width; // map.rooms size
-		g = (int)floor((double)(size/2)), // max deslocation of map.rooms
-		d = g * (size + 1); // center cell of map.rooms
+void map_renderer(Map map, int position) {
+	int i, k,
+		l = map.height * map.width;
+		
+	for(i = 0; i < l; i++) {
+		k = map.rooms[i];
+		switch(k) {
+			case BLOCK_ROOM:
+			case VCORRIDOR_ROOM:
+			case HCORRIDOR_ROOM:
+				printf("%c%c%c", rs[k].combination[0], i == position ? '0' : rs[k].combination[1], rs[k].combination[2]);
+				break;
+			case NULL_ROOM:
+				if(i == position) printf(" 0 ");
+				else printf("   ");
+				break;
+			default:
+				printf("ERR");
+		}
+		
+		if(!((i + 1) % map.width)) {
+			printf("\n");
+		}
+	}
 	
 	// TODO
 	/*
@@ -79,12 +107,6 @@ void map_renderer(Map map, int size, int position) {
 
 int _get_room_type(char a, char b, char c) {
 	int i;
-	struct _room_structure rs[4];
-	
-	rs[0] = (struct _room_structure){{'[',' ',']'}, BLOCK_ROOM};
-	rs[1] = (struct _room_structure){{'{',' ','}'}, HCORRIDOR_ROOM};
-	rs[2] = (struct _room_structure){{'(',' ',')'}, VCORRIDOR_ROOM};
-	rs[3] = (struct _room_structure){{'#','#','#'}, NULL_ROOM};
 	
 	for(i = 0; i < 4; i++) {
 		if(a == rs[i].combination[0] && b == rs[i].combination[1] && c == rs[i].combination[2]) {
