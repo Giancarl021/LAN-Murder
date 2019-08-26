@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 	int position = 0,
 		w = m.width,
 		h = m.height;
-	
+	map_renderer(m, position);
 	do {
 		ch = toupper(getch());
 		position = map_move(m, position, (ch == 'W' ? 0 : (ch == 'S' ? 1 : (ch == 'A' ? 2 : 3))));
