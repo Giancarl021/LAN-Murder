@@ -3,8 +3,6 @@
 #include <string.h>
 #include <math.h>
 #include <locale.h>
-#include "lib/conio.h"
-#include "lib/conio.c"
 #include "util/util.h"
 #include "util/util.c"
 #include "util/map.h"
@@ -25,11 +23,11 @@ int main(int argc, char *argv[]) {
 	int position = 0,
 		w = m.width,
 		h = m.height;
-	map_renderer(m, position);
+	map_renderer(m, 0);
 	do {
 		ch = toupper(getch());
-		position = map_move(m, position, (ch == 'W' ? 0 : (ch == 'S' ? 1 : (ch == 'A' ? 2 : 3))));
-		gotoxy(1, 1);
+		system("cls");
+		position = map_move(m, position, (ch == 'W' ? MV_UP : (ch == 'S' ? MV_DOWN : (ch == 'A' ? MV_LEFT : MV_RIGHT))));
 		map_renderer(m, position);
 	} while(ch != ' ');
 	

@@ -59,50 +59,55 @@ char *map_to_string(Map map) {
 void map_renderer(Map map, int position) {
 	int i, k,
 		l = map.height * map.width;
-		
 	for(i = 0; i < l; i++) {
 		k = map.rooms[i];
-		if(position == i) textbackground(HIGHLIGHT_BG);
-		else textbackground(DEFAULT_BG);
 		switch(k) {
 			case BLOCK_ROOM:
 			case VCORRIDOR_ROOM:
 			case HCORRIDOR_ROOM:
-				textcolor(rs[k].color);
-				printf("%s", rs[k].combination);
+				if(position == i) {
+					printf("%c%c%c", rs[k].combination[0], PLAYER_CHAR, rs[k].combination[2]);
+				} else {
+					printf("%s", rs[k].combination);
+				}
 				break;
 			case NULL_ROOM:
 				printf("   ");
 				break;
 			default:
-				textcolor(DARKGRAY);
 				printf("ERR");
 		}
 		
 		if(!((i + 1) % map.width)) {
 			printf("\n");
 		}
-		textcolor(DEFAULT_COLOR);
 	}
 };
 
 int map_move(Map map, int position, int direction) {
 	int destination;
-	if(direction == MV_UP) {
-		destination = position - map.width;
-	} else if (direction == MV_DOWN) {
-		destination = position + map.width;
-	} else if (direction == MV_LEFT) {
-		destination = position - 1;
-	} else if (direction == MV_RIGHT) {
-		destination = position + 1 ;
-	} else {
-		return position;
+	switch(direction) {
+		case MV_UP:
+			destination = position - map.width;
+			break;
+		case MV_DOWN:
+			destination = position + map.width;
+			break;
+		case MV_LEFT:
+			destination = position - 1;
+			break;
+		case MV_RIGHT:
+			destination = position + 1;
+			break;
+		default:
+			return position;
 	}
 	
-	if(_is_accessible_room(map, position, destination)) {
+	if(_is_accessible_room(map, position, destination, direction)) {
 		return destination;
 	}
+	
+	return position;
 }
 
 int _get_room_type(char a, char b, char c) {
@@ -116,8 +121,24 @@ int _get_room_type(char a, char b, char c) {
 	return -1;
 }
 
-bool _is_accessible_room(Map map, int origin, int destination) {
-	if(destination < 0 || destination > (map.width * map.height)) return false;
+bool _is_accessible_room(Map map, int origin, int destination, int direction) {
+	// Null Destination
+	if(destination < 0 || destination >= (map.width * map.height)) return false; // Null Pointer
+	if(map.rooms[destination] == NULL_ROOM) return false; // Destination is a NULL BLOCK
 	
-	if(map.rooms[destination] == NULL_ROOM) return false;
+	// Out off Bounds
+	
+	if(direction == MV_UP && origin <= map.width) return false; // Up in first line
+	if(direction == MV_DOWN && origin >= (map.width * map.height - map.width)) return false; // Down in last line
+	if(direction == MV_LEFT && origin % map.width == 0) return false; // Left in first column
+	if(direction == MV_RIGHT && origin % map.width == (map.width - 1)) return false; // Right in last column
+	
+	// Constrains
+	
+	if(map.rooms[destination] == VCORRIDOR_ROOM && (direction == MV_LEFT || direction == MV_RIGHT)) return false; // Horizontal movement to VCORRIDOR ROOM
+	if(map.rooms[destination] == HCORRIDOR_ROOM && (direction == MV_UP || direction == MV_DOWN)) return false; // Vertiacal movement to HCORRIDOR ROOM
+	if(map.rooms[origin] == VCORRIDOR_ROOM && (direction == MV_LEFT || direction == MV_RIGHT)) return false; // Horizontal movement from VCORRIDOR ROOM
+	if(map.rooms[origin] == HCORRIDOR_ROOM && (direction == MV_UP || direction == MV_DOWN)) return false; // Vertical movement from HCORRIDOR ROOM
+	
+	return true;
 }
