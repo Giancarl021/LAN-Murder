@@ -123,6 +123,7 @@ int _get_room_type(char a, char b, char c) {
 
 bool _is_accessible_room(Map map, int origin, int destination, int direction) {
 	// Null Destination
+	
 	if(destination < 0 || destination >= (map.width * map.height)) return false; // Null Pointer
 	if(map.rooms[destination] == NULL_ROOM) return false; // Destination is a NULL BLOCK
 	
