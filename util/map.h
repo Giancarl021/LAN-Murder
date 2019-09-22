@@ -36,6 +36,8 @@ int _get_room_type(char a, char b, char c);
 
 bool _is_accessible_room(Map map, int origin, int destination, int direction);
 
+bool _can_warp(Map map, int destination);
+
 Map *parse_map(const char* string);
 
 char *map_to_string(Map map);
@@ -43,3 +45,7 @@ char *map_to_string(Map map);
 void map_renderer(Map map, int position);
 
 int map_move(Map map, int position, int direction);
+
+int map_warp(Map map, int position, int destination);
+
+int random_map_warp(Map map, int position);

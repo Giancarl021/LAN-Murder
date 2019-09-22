@@ -7,6 +7,8 @@
 #include "util/util.c"
 #include "util/map.h"
 #include "util/map.c"
+#include "util/player.h"
+#include "util/player.c"
 
 int main(int argc, char *argv[]) {
 	char *map_path = "map/3-type.map";

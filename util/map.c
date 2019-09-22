@@ -110,6 +110,17 @@ int map_move(Map map, int position, int direction) {
 	return position;
 }
 
+int map_warp(Map map, int position, int destination) {
+	if(_can_warp(map, destination)) {
+		return destination;
+	}
+	return position;
+}
+
+int random_map_warp(Map map, int position) {
+	//
+}
+
 int _get_room_type(char a, char b, char c) {
 	int i;
 	
@@ -140,6 +151,14 @@ bool _is_accessible_room(Map map, int origin, int destination, int direction) {
 	if(map.rooms[destination] == HCORRIDOR_ROOM && (direction == MV_UP || direction == MV_DOWN)) return false; // Vertiacal movement to HCORRIDOR ROOM
 	if(map.rooms[origin] == VCORRIDOR_ROOM && (direction == MV_LEFT || direction == MV_RIGHT)) return false; // Horizontal movement from VCORRIDOR ROOM
 	if(map.rooms[origin] == HCORRIDOR_ROOM && (direction == MV_UP || direction == MV_DOWN)) return false; // Vertical movement from HCORRIDOR ROOM
+	
+	return true;
+}
+
+bool _can_warp(Map map, int destination) {
+	// Null Destination
+	if(destination < 0 || destination >= (map.width * map.height)) return false; // Null Pointer
+	if(map.rooms[destination] == NULL_ROOM) return false; // Destination is a NULL BLOCK
 	
 	return true;
 }
