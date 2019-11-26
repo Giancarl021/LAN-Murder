@@ -133,6 +133,20 @@ int _get_room_type(char a, char b, char c) {
 	return -1;
 }
 
+int _get_random_accessible_room(Map m) {
+	int i, k,
+		l = m.height * m.width,
+		accessible_rooms[l],
+		acc_rooms_size = 0;
+		
+	for(i = 0; i < l; i++) {
+		k = m.rooms[i];
+		if(k != BLOCK_ROOM && k != VCORRIDOR_ROOM && k != HCORRIDOR_ROOM) continue;
+		accessible_rooms[acc_rooms_size++] = i;
+	}
+	return accessible_rooms[(int)(rand() % acc_rooms_size)];
+}
+
 bool _is_accessible_room(Map map, int origin, int destination, int direction) {
 	// Null Destination
 	

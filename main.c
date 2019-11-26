@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[]) {
 	char *map_path = "map/3-type.map";
-	
+	srand(time(NULL)); // <<< IMPORTANT
 //	printf("%s", // Prints string
 //		map_to_string( // Convert map structure into string
 //			*parse_map( // Convert string into map structure
@@ -24,6 +24,26 @@ int main(int argc, char *argv[]) {
 //		map_renderer(m, position);
 //	} while(ch != ' ');
 	
-	generate_item(create_environment(m));
+	Environment *e = create_environment(m);
+	
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	generate_item(e);
+	
+	int i;
+	for(i = 0; i < e->items_size; i++) {
+		printf("\ntype: %d\ntag: %s\nlocation: %d", e->items[i].type, e->items[i].tag, e->items[i].location);
+	}
 	return 0;
 }
