@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <locale.h>
+#include "libs/util.h"
+#include "libs/util.c"
+#include "libs/map.h"
+#include "libs/map.c"
+#include "libs/player.h"
+#include "libs/player.c"
+#include "libs/environment.h"
+#include "libs/environment.c"
+#include "libs/io.h"
+#include "libs/io.c"

@@ -20,8 +20,9 @@ Map *parse_map(const char* string) {
 	x->rooms = malloc(sizeof(int) * size);
 	for(i = 0; i < size; i++) {
 		x->rooms[i] = _get_room_type(string[index], string[index + 1], string[index + 2]);
-		if(string[index + 3] == '\n') index += 4;
-		else index += 3;
+		if(string[index + 3] == 10) index += 4; // Windows
+		else if (string[index + 3] == 13) index += 5; // Linux
+		else index += 3; // Normal
 	}
 	return x;
 }
