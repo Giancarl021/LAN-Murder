@@ -16,35 +16,37 @@ int main(int argc, char *argv[]) {
 	int position = 0,
 		w = m.width,
 		h = m.height;
-	map_renderer(m, 0);
-	do {
-		ch = toupper(getch());
-      if(ch != 'W' && ch != 'A' && ch != 'S' && ch != 'D') continue;
-		system("cls");
-		position = map_move(m, position, (ch == 'W' ? MV_UP : (ch == 'S' ? MV_DOWN : (ch == 'A' ? MV_LEFT : MV_RIGHT))));
-		map_renderer(m, position);
-	} while(ch != ' ');
-	
-	Environment *e = create_environment(m);
-	
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	generate_item(e);
-	
-	int i;
-	for(i = 0; i < e->items_size; i++) {
-		printf("\ntype: %d\ntag: %s\nlocation: %d", e->items[i].type, e->items[i].tag, e->items[i].location);
-	}
+//	map_renderer(m, 0);
+//	do {
+//		ch = toupper(getch());
+//      if(ch != 'W' && ch != 'A' && ch != 'S' && ch != 'D') continue;
+//		system("cls");
+//		position = map_move(m, position, (ch == 'W' ? MV_UP : (ch == 'S' ? MV_DOWN : (ch == 'A' ? MV_LEFT : MV_RIGHT))));
+//		map_renderer(m, position);
+//	} while(ch != ' ');
+//	
+//	Environment *e = create_environment(m);
+//	
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	generate_item(e);
+//	
+//	int i;
+//	for(i = 0; i < e->items_size; i++) {
+//		printf("\ntype: %d\ntag: %s\nlocation: %d", e->items[i].type, e->items[i].tag, e->items[i].location);
+//	}
+	write_file("config.json", "{\n  \"a\": 1\n  \"b\":2\n}");
+	printf("%s", read_file("config.json"));
 	return 0;
 }

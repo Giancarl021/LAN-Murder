@@ -20,3 +20,9 @@ char *read_file(const char *path) {
 	fclose(f);
 	return str;
 }
+
+void write_file(const char *path, const char *string) {
+	FILE *f = fopen(path, "w");
+	fprintf(f, "%s", string);
+	fclose(f);
+}
