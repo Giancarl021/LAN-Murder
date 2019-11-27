@@ -34,7 +34,6 @@ int main(int argc, char *argv[]) {
 		surround_text("BEM-VINDO AO LAN-MURDER!!!", '*');
 		printf("\n\nAntes de iniciar, poderia informar o endereco da pasta de salas?\n\n > ");
 		input(address, 255);
-		printf("[%s]", address);
 		write_file("config.txt", address);
 	}
 //	printf("%d\n", check_file("config.json"));
@@ -42,7 +41,7 @@ int main(int argc, char *argv[]) {
 	const char *a = read_file("config.txt");
 	printf("%s", a);
 	printf("\n\n%s", read_file(a));
-//	print_all_chars(read_file("map/1.map"));
+//	print_all_chars(read_file(a));
 	printf("\n\n");
 	return 0;
 }

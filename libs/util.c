@@ -6,11 +6,15 @@ char *read_file(const char *path) {
 	int l = ftell(f);
 	fseek(f, 0, SEEK_SET);
 	char *str = malloc(l + 1);
-	if(str) {
-    	fread(str, 1, l, f);
+	
+	int i;
+	char ch;
+	for(i = 0; i < l; i++) {
+		ch = fgetc(f);
+		str[i] = ch == -1 ? '\0' : ch;
 	}
+	str[i] = '\0';
 	fclose(f);
-	str[l] = '\0';
 	return str;
 }
 
