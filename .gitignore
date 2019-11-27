@@ -3,3 +3,5 @@ data/
 *.exe
 .vscode/
 .vs/
+config.*
+exe.ln
