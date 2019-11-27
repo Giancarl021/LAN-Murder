@@ -1,21 +1,13 @@
 #include "lib"
 
 int main(int argc, char *argv[]) {
-	char *map_path = "map/3-type.map";
-	srand(time(NULL)); // <<< IMPORTANT
-//	printf("%s", // Prints string
-//		map_to_string( // Convert map structure into string
-//			*parse_map( // Convert string into map structure
-//				read_file(map_path) // read file dynamic allocating memory to string
-//			)
-//		)
-//	);
-	Map m = *parse_map(read_file(map_path));
-//	printf("%s\n\n", read_file(map_path));
-	char ch;
-	int position = 0,
-		w = m.width,
-		h = m.height;
+	init();
+//	char *map_path = "map/3-type.map";
+//	Map m = *parse_map(read_file(map_path));
+//	char ch;
+//	int position = 0,
+//		w = m.width,
+//		h = m.height;
 //	map_renderer(m, 0);
 //	do {
 //		ch = toupper(getch());
@@ -32,21 +24,25 @@ int main(int argc, char *argv[]) {
 //	generate_item(e);
 //	generate_item(e);
 //	generate_item(e);
-//	generate_item(e);
-//	generate_item(e);
-//	generate_item(e);
-//	generate_item(e);
-//	generate_item(e);
-//	generate_item(e);
-//	generate_item(e);
-//	generate_item(e);
-//	generate_item(e);
 //	
 //	int i;
 //	for(i = 0; i < e->items_size; i++) {
 //		printf("\ntype: %d\ntag: %s\nlocation: %d", e->items[i].type, e->items[i].tag, e->items[i].location);
 //	}
-	write_file("config.json", "{\n  \"a\": 1\n  \"b\":2\n}");
-	printf("%s", read_file("config.json"));
+	if(!check_file("config.txt")) {
+		char address[256];
+		surround_text("BEM-VINDO AO LAN-MURDER!!!", '*');
+		printf("\n\nAntes de iniciar, poderia informar o endereco da pasta de salas?\n\n > ");
+		input(address, 255);
+		printf("[%s]", address);
+		write_file("config.txt", address);
+	}
+//	printf("%d\n", check_file("config.json"));
+//	write_file("config.json", "{\n  \"a\": 1\n  \"b\":2\n}");
+//	const char *a = read_file("config.txt");
+//	printf("%s", a);
+//	printf("\n\n%s", read_file(a));
+	print_all_chars(read_file("map/1.map"));
+	printf("\n\n");
 	return 0;
 }

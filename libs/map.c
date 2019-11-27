@@ -4,7 +4,6 @@ Map *parse_map(const char* string) {
 		h = 0,
 		l = strlen(string),
 		index = 0;
-	
 	for(i = 0; i < l; i++) {
 		if(string[i] == '\n') {
 			if(w == -1) w = i;

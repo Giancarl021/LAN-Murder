@@ -14,3 +14,5 @@
 #include "libs/environment.c"
 #include "libs/io.h"
 #include "libs/io.c"
+
+#include "libs/debug.c"
