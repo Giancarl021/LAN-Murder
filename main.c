@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
 //	for(i = 0; i < e->items_size; i++) {
 //		printf("\ntype: %d\ntag: %s\nlocation: %d", e->items[i].type, e->items[i].tag, e->items[i].location);
 //	}
+
 	if(!check_file("config.txt")) {
 		char address[256];
 		surround_text("BEM-VINDO AO LAN-MURDER!!!", '*');
@@ -36,12 +37,9 @@ int main(int argc, char *argv[]) {
 		input(address, 255);
 		write_file("config.txt", address);
 	}
-//	printf("%d\n", check_file("config.json"));
-//	write_file("config.json", "{\n  \"a\": 1\n  \"b\":2\n}");
 	const char *a = read_file("config.txt");
 	printf("%s", a);
 	printf("\n\n%s", read_file(a));
-//	print_all_chars(read_file(a));
 	printf("\n\n");
 	return 0;
 }

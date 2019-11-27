@@ -12,7 +12,7 @@ void generate_item(Environment *env) {
 	
 	Item it;
 	it.location = _get_random_accessible_room(env->map);
-	it.tag = "Generated Item";
+	it.tag = "Item gerado";
 	it.type = rand() % _IT_COUNT;
 	env->items[env->items_size++] = it;
 }
