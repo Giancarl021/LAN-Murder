@@ -2,24 +2,15 @@ char *read_file(const char *path) {
 	FILE *f = fopen(path, "r");
 	if(f == NULL) return NULL;
 	
-	int index = 0;
-	char *str = malloc(sizeof(char)), ch;
-	
-	while(!feof(f)) {
-		ch = fgetc(f);
-		if(ch == '%') {
-			str = realloc(str, (sizeof(char) * (index + 2)));
-			str[index++] = ch;
-			str[index++] = ch;
-		} else {
-			str = realloc(str, (sizeof(char) * (index + 1)));
-			str[index++] = ch;
-		}
+	fseek(f, 0, SEEK_END);
+	int l = ftell(f);
+	fseek(f, 0, SEEK_SET);
+	char *str = malloc(l + 1);
+	if(str) {
+    	fread(str, 1, l, f);
 	}
-	str = realloc(str, (sizeof(char) * (index + 1)));
-	str[index] = '\0';
-	if(str[index + 1] == -1) str[index + 1] = '\0';
 	fclose(f);
+	str[l] = '\0';
 	return str;
 }
 

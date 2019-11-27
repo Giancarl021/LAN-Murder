@@ -39,10 +39,10 @@ int main(int argc, char *argv[]) {
 	}
 //	printf("%d\n", check_file("config.json"));
 //	write_file("config.json", "{\n  \"a\": 1\n  \"b\":2\n}");
-//	const char *a = read_file("config.txt");
-//	printf("%s", a);
-//	printf("\n\n%s", read_file(a));
-	print_all_chars(read_file("map/1.map"));
+	const char *a = read_file("config.txt");
+	printf("%s", a);
+	printf("\n\n%s", read_file(a));
+//	print_all_chars(read_file("map/1.map"));
 	printf("\n\n");
 	return 0;
 }
