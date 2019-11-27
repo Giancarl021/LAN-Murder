@@ -1,6 +1,6 @@
 #define _ENVIROMENT_ITEM_LIMIT 8
 
-const _IT_COUNT = 4;
+const int _IT_COUNT = 4;
 
 enum {
 	IT_CORPSE,

@@ -17,12 +17,13 @@ int main(int argc, char *argv[]) {
 		w = m.width,
 		h = m.height;
 	map_renderer(m, 0);
-//	do {
-//		ch = toupper(getch());
-//		system("cls");
-//		position = map_move(m, position, (ch == 'W' ? MV_UP : (ch == 'S' ? MV_DOWN : (ch == 'A' ? MV_LEFT : MV_RIGHT))));
-//		map_renderer(m, position);
-//	} while(ch != ' ');
+	do {
+		ch = toupper(getch());
+      if(ch != 'W' && ch != 'A' && ch != 'S' && ch != 'D') continue;
+		system("cls");
+		position = map_move(m, position, (ch == 'W' ? MV_UP : (ch == 'S' ? MV_DOWN : (ch == 'A' ? MV_LEFT : MV_RIGHT))));
+		map_renderer(m, position);
+	} while(ch != ' ');
 	
 	Environment *e = create_environment(m);
 	
